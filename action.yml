@@ -1,0 +1,31 @@
+name: 'Deta Space Deployment Github Action'
+description: 'Github Action for deploying Deta Space apps.'
+branding:
+  icon: 'upload-cloud'
+  color: 'purple'
+
+inputs:
+  access_token:
+    description: 'Deta access token for Deta Space CLI authentication.'
+    required: true
+
+  project_id:
+    description: 'Deta Space app project ID.'
+    required: true
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: 'Install Deta Space CLI & add access token'
+      shell: bash
+      run: |
+        curl -fsSL https://get.deta.dev/space-cli.sh | sh
+    - name: 'Get .space folder and push'
+      shell: script -q -e -c "bash {0}"
+      env:
+        SPACE_ACCESS_TOKEN: ${{ inputs.access_token }}
+      run: |
+        export PATH="/home/runner/.detaspace/bin:$PATH"
+        space link -i ${{ inputs.project_id }}
+        space push
