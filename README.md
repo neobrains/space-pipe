@@ -24,11 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: neobrains/space-deployment-github-action@v0.0.1
+      - name: Deta Space Deployment Github Action
+        uses: neobrains/space-deployment-github-action@0.1
         with:
           access_token: ${{ secrets.ACCESS_TOKEN }}
           project_id: ${{ secrets.PROJECT_ID }}
 ```
 
 Here [access_token](#access_token) and [project_id](#project_id) are stored as ACCESS_TOKEN and PROJECT_ID in GitHub Actions secrets.
+
 Follow the instructions [here](https://alpha.deta.space/docs/en/basics/releases#releasing-from-the-gui) to create a release for your project.
