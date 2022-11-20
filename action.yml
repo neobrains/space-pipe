@@ -21,6 +21,7 @@ runs:
       shell: bash
       run: |
         curl -fsSL https://get.deta.dev/space-cli.sh | sh
+        
     - name: 'Get .space folder and push'
       shell: script -q -e -c "bash {0}"
       env:
