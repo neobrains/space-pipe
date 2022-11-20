@@ -3,7 +3,7 @@
 Thanks for the help [Sponge](https://github.com/rohanshiva).
 
 ## Usage
-GitHub Action to push your code to [Deta Space](https://alpha.deta.space/).
+GitHub Action to push your project to [Deta Space](https://alpha.deta.space/).
 
 ## Inputs
 ### `access_token`
@@ -31,3 +31,4 @@ jobs:
 ```
 
 Here [access_token](#access_token) and [project_id](#project_id) are stored as ACCESS_TOKEN and PROJECT_ID in GitHub Actions secrets.
+Follow the instructions [here](https://alpha.deta.space/docs/en/basics/releases#releasing-from-the-gui) to create a release for your project.
