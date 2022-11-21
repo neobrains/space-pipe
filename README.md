@@ -1,9 +1,9 @@
 # Space Deployment Github Action
 
-Thanks for the help [Sponge](https://github.com/rohanshiva).
+Thanks for the help ✨ [Sponge](https://github.com/rohanshiva).
 
 ## Usage
-GitHub Action to push your project to [Deta Space](https://alpha.deta.space/).
+GitHub Action to 🚀 push your project to [Deta Space](https://alpha.deta.space/).
 
 ## Inputs
 - ### `access_token`
