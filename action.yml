@@ -37,7 +37,7 @@ runs:
         echo "SPACE_ACCESS_TOKEN={{ inputs.access_token }}" >> $GITHUB_ENV
 
     - name: 'Get .space folder'
-      shell: shell: script -q -e -c "bash {0}"
+      shell: script -q -e -c "bash {0}"
       run: space link -i ${{ inputs.project_id }}
 
     - name: 'Push changes to Deta Space'
