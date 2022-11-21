@@ -14,6 +14,7 @@ GitHub Action to 🚀 push your project to [Deta Space](https://alpha.deta.space
 
 <br/><br/>
 ⚠️ Use [GitHub Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to store your inputs.
+⚠️ Make sure to add your 📝 [Spacefile](https://alpha.deta.space/docs/en/reference/spacefile) in your repository. It contains the configuration of your project and is used by Deta Space to understand what your project looks like and how to run it.
 
 ## Example workflow
 ```
