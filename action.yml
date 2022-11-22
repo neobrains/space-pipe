@@ -40,8 +40,8 @@ runs:
     - name: 'Get .space folder'
       shell: script -q -e -c "bash {0}"
       run: |
-        echo $SPACE_ACCESS_TOKEN
-        echo $SPACE_PROJECT_ID
+        echo ${{ env.SPACE_ACCESS_TOKEN }}
+        echo ${{ env.SPACE_PROJECT_ID }}
 #       space link -i ${{ inputs.project_id }}
         
     - name: 'Push changes to Deta Space'
