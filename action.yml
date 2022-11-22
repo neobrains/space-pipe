@@ -43,8 +43,7 @@ runs:
         
     - name: 'Push changes to Deta Space'
       if: ${{ inputs.do_space_push == 'true' }}
-#       shell: script -q -e -c "bash {0}"
-      shell: bash
+      shell: script -q -e -c "bash {0}"
       run: |
         space push
 
