@@ -38,8 +38,12 @@ runs:
 
     - name: 'Get .space folder'
       shell: script -q -e -c "bash {0}"
-      run: space link -i ${{ inputs.project_id }}
-
+      run: |
+        space link -i ${{ inputs.project_id }} -d tmp
+        ls -a
+        cd tmp
+        ls -a
+        
     - name: 'Push changes to Deta Space'
       if: ${{ inputs.do_space_push == 'true' }}
       shell: script -q -e -c "bash {0}"
