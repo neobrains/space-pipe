@@ -34,8 +34,8 @@ runs:
       run: |
         curl -fsSL https://get.deta.dev/space-cli.sh | sh
         echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
-        echo "SPACE_ACCESS_TOKEN={{ inputs.access_token }}" >> $GITHUB_ENV
-        echo "SPACE_PROJECT_ID={{ inputs.project_id }}" >> $GITHUB_ENV
+        echo "SPACE_ACCESS_TOKEN=${{ inputs.access_token }}" >> $GITHUB_ENV
+        echo "SPACE_PROJECT_ID=${{ inputs.project_id }}" >> $GITHUB_ENV
 
     - name: 'Get .space folder'
       shell: script -q -e -c "bash {0}"
