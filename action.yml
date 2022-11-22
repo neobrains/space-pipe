@@ -1,5 +1,6 @@
 name: 'Deta Space Deployment Github Action'
 description: 'Github Action for deploying Deta Space apps.'
+
 branding:
   icon: 'upload-cloud'
   color: 'purple'
@@ -13,20 +14,48 @@ inputs:
     description: 'Deta Space app project ID.'
     required: true
 
+  space_push:
+    description: Whether to do space push. Valid value is "true". Space push will not be performed by default.
+    required: false
+
+  space_release:
+    description: Whether to do space release without listing the revision on Space Discovery. Valid value is "true". Space release will not be performed by default.
+    required: false
+
+  list_on_discovery:
+    description: Whether to do space release & list the latest revision on Space Discovery. Valid value is "true". Space release and listing on discovery will not be performed by default.
+    required: false
+
 runs:
   using: 'composite'
 
   steps:
-    - name: 'Install Deta Space CLI & add access token'
+    - name: 'Install Deta Space CLI & set SPACE_ACCESS_TOKEN environment variable'
       shell: bash
       run: |
         curl -fsSL https://get.deta.dev/space-cli.sh | sh
-        
-    - name: 'Get .space folder and push'
-      shell: script -q -e -c "bash {0}"
-      env:
-        SPACE_ACCESS_TOKEN: ${{ inputs.access_token }}
+        echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
+        echo "SPACE_ACCESS_TOKEN=${{ inputs.access_token }}" >> $GITHUB_ENV
+
+    - name: 'Get .space folder'
+      shell: bash
       run: |
-        export PATH="/home/runner/.detaspace/bin:$PATH"
         space link -i ${{ inputs.project_id }}
+
+    - name: 'Push changes to Deta Space'
+      if: ${{ inputs.space_push == 'true' }}
+      shell: script -q -e -c "bash {0}"
+      run: |
         space push
+
+    - name: 'Release latest revision'
+      if: ${{ inputs.space_release == 'true' }}
+      shell: script -q -e -c "bash {0}"
+      run: |
+        space release -c
+
+    - name: 'List latest release on Space Discovery'
+      if: ${{ inputs.list_on_discovery == 'true' }}
+      shell: script -q -e -c "bash {0}"
+      run: |
+        space release -l -c
