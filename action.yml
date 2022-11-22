@@ -21,7 +21,7 @@ inputs:
     description: Whether to do space release. Valid value is "true". Space release will not be performed by default.
     required: false
 
-  do_listing_on_discovery:
+  do_list_on_discovery:
     description: Whether to list the latest revision on Space Discovery. Valid value is "true". Listing on discovery will not be performed by default.
     required: false
 
@@ -54,7 +54,7 @@ runs:
         space release -c
 
     - name: 'List latest release on Space Discovery'
-      if: ${{ inputs.do_listing_on_discovery == 'true' }}
+      if: ${{ inputs.do_list_on_discovery == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
         space release -l -c
