@@ -16,9 +16,13 @@ Thanks for the help ✨ [Sponge](https://github.com/rohanshiva).
 
 - `space_release` : (Optional) If true, the latest revision will be released to Space. The default value is false.
 
-- `list_on_discovery` : (Optional) If true, the latest revision will be released to Space & listed on Space Discovery. The default value is false.<br> 📌 No need to use *space_release* with this.
+- `list_on_discovery` : (Optional) If true, the latest revision will be listed on Space Discovery. The default value is false.
+
+- `release_version` : (Optional) Version for the release. If not provided, Deta Space will generate a version by default.
 
 <br>
+
+⚠️ Neither **list_on_discovery** nor **release_version** can be used without **space_release** set to "true" as both of them are optional args of **space_release**.
 
 ⚠️ Use [GitHub Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to store your inputs.
 
@@ -43,7 +47,7 @@ jobs:
           list_on_discovery: true
 ```
 
-Here [access_token](#access_token) and [project_id](#project_id) are stored as *ACCESS_TOKEN* and *PROJECT_ID* in GitHub Actions secrets. After creating a new revision with *space_push*, the latest revision will be listed on Space Discovery with *list_on_discovery*.
+Here [access_token](#access_token) and [project_id](#project_id) are stored as **ACCESS_TOKEN** and **PROJECT_ID** in GitHub Actions secrets. After creating a new revision with *space_push*, the latest revision will be listed on Space Discovery with **list_on_discovery**.
 
 ### Some workflow examples to manage your deployments:
 - A single workflow can be created with [jobs](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow#defining-prerequisite-jobs) to do space push, release of that revision and list that on Space Discovery with conditions to run a subsequent job if the previous one was successful.
