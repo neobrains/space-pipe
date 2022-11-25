@@ -1,17 +1,17 @@
-name: 'Deta Space Deployment Github Action'
-description: 'Github Action for deploying Deta Space apps.'
+name: Deta Space Deployment Github Action
+description: Github Action for deploying Deta Space apps.
 
 branding:
-  icon: 'upload-cloud'
-  color: 'purple'
+  icon: upload-cloud
+  color: purple
 
 inputs:
   access_token:
-    description: 'Deta access token for Deta Space CLI authentication.'
+    description: Deta access token for Deta Space CLI authentication.
     required: true
 
   project_id:
-    description: 'Deta Space app project ID.'
+    description: Deta Space app project ID.
     required: true
 
   space_push:
@@ -23,39 +23,36 @@ inputs:
     required: false
 
   list_on_discovery:
-    description: Whether to do space release & list the latest revision on Space Discovery. Valid value is "true". Space release and listing on discovery will not be performed by default.
+    description: Whether to list the latest revision on Space Discovery. Valid value is "true". Listing on Space Discovery will not be performed by default.
+    required: false
+
+  release_version:
+    description: Version for the release. If not provided, Deta Space will generate a version by default.
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
 
   steps:
-    - name: 'Install Deta Space CLI & set SPACE_ACCESS_TOKEN environment variable'
+    - name: Install Deta Space CLI & set SPACE_ACCESS_TOKEN environment variable
       shell: bash
       run: |
         curl -fsSL https://get.deta.dev/space-cli.sh | sh
         echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
         echo "SPACE_ACCESS_TOKEN=${{ inputs.access_token }}" >> $GITHUB_ENV
 
-    - name: 'Get .space folder'
-      shell: bash
-      run: |
-        space link -i ${{ inputs.project_id }}
-
-    - name: 'Push changes to Deta Space'
-      if: ${{ inputs.space_push == 'true' }}
+    - name: Push changes to Deta Space
+      if: ${{ inputs.space_push == "true" }}
       shell: script -q -e -c "bash {0}"
       run: |
-        space push
+        space push --id "${{ inputs.project_id }}"
 
-    - name: 'Release latest revision'
-      if: ${{ inputs.space_release == 'true' }}
+    - name: Create a release on Deta Space
+      if: ${{ inputs.space_release == "true" }}
       shell: script -q -e -c "bash {0}"
       run: |
-        space release -c
-
-    - name: 'List latest release on Space Discovery'
-      if: ${{ inputs.list_on_discovery == 'true' }}
-      shell: script -q -e -c "bash {0}"
-      run: |
-        space release -l -c
+        if [[ ${{ inputs.list_on_discovery }} == "true" ]]; then
+          space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --listed --confirm
+        else
+          space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --confirm
+        fi
