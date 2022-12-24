@@ -42,16 +42,16 @@ runs:
         echo "SPACE_ACCESS_TOKEN=${{ inputs.access_token }}" >> $GITHUB_ENV
 
     - name: Push changes to Deta Space
-      if: ${{ inputs.space_push == "true" }}
+      if: ${{ inputs.space_push == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
         space push --id "${{ inputs.project_id }}"
 
     - name: Create a release on Deta Space
-      if: ${{ inputs.space_release == "true" }}
+      if: ${{ inputs.space_release == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
-        if [[ ${{ inputs.list_on_discovery }} == "true" ]]; then
+        if [[ ${{ inputs.list_on_discovery }} == true ]]; then
           space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --listed --confirm
         else
           space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --confirm
