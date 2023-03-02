@@ -12,6 +12,8 @@ Thanks for the help ✨ [Sponge](https://github.com/rohanshiva).
 
 - `project_id` : Used for getting the *.space folder* for pushing your code to Deta Space. To get your project id go to the [Builder](https://alpha.deta.space/builder) and in your project’s *Develop* tab, open the *teletype* (command bar) and copy the *Project ID*.
 
+- `project_directory` : (Optional) The directory where your project is located. The default value is the root directory.
+
 - `space_push` : (Optional) If true, pushes your changes to Space and creates a new revision. The default value is false.
 
 - `space_release` : (Optional) If true, the latest revision will be released to Space. The default value is false.
