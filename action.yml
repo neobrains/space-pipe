@@ -14,17 +14,25 @@ inputs:
     description: Deta Space app project ID.
     required: true
 
+  project_directory:
+    description: Directory of the Deta Space project.
+    required: false
+    default: "."
+
   space_push:
     description: Whether to do space push. Valid value is "true". Space push will not be performed by default.
     required: false
+    default: false
 
   space_release:
     description: Whether to do space release without listing the revision on Space Discovery. Valid value is "true". Space release will not be performed by default.
     required: false
+    default: false
 
   list_on_discovery:
     description: Whether to list the latest revision on Space Discovery. Valid value is "true". Listing on Space Discovery will not be performed by default.
     required: false
+    default: false
 
   release_version:
     description: Version for the release. If not provided, Deta Space will generate a version by default.
@@ -45,12 +53,14 @@ runs:
       if: ${{ inputs.space_push == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
+        cd ${{ inputs.project_directory }}
         space push --id "${{ inputs.project_id }}"
 
     - name: Create a release on Deta Space
       if: ${{ inputs.space_release == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
+        cd ${{ inputs.project_directory }}
         if [[ ${{ inputs.list_on_discovery }} == true ]]; then
           space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --listed --confirm
         else
