@@ -54,15 +54,17 @@ runs:
       shell: script -q -e -c "bash {0}"
       run: |
         cd ${{ inputs.project_directory }}
-        space push --id "${{ inputs.project_id }}"
+        space link --id "${{ inputs.project_id }}"
+        space push
 
     - name: Create a release on Deta Space
       if: ${{ inputs.space_release == 'true' }}
       shell: script -q -e -c "bash {0}"
       run: |
         cd ${{ inputs.project_directory }}
+        space link --id "${{ inputs.project_id }}"
         if [[ ${{ inputs.list_on_discovery }} == true ]]; then
-          space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --listed --confirm
+          space release --version "${{ inputs.release_version }}" --listed --confirm
         else
-          space release --id "${{ inputs.project_id }}" --version "${{ inputs.release_version }}" --confirm
+          space release --version "${{ inputs.release_version }}" --confirm
         fi
