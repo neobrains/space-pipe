@@ -46,12 +46,12 @@ runs:
       shell: bash
       run: |
         curl -fsSL https://get.deta.dev/space-cli.sh | sh
-        echo '/home/runner/.detaspace/bin' >> $GITHUB_PATH
+        echo "$HOME/.detaspace/bin" >> $GITHUB_PATH
         echo "SPACE_ACCESS_TOKEN=${{ inputs.access_token }}" >> $GITHUB_ENV
 
     - name: Push changes to Deta Space
       if: ${{ inputs.space_push == 'true' }}
-      shell: script -q -e -c "bash {0}"
+      shell: bash
       run: |
         cd ${{ inputs.project_directory }}
         space link --id "${{ inputs.project_id }}"
@@ -59,7 +59,7 @@ runs:
 
     - name: Create a release on Deta Space
       if: ${{ inputs.space_release == 'true' }}
-      shell: script -q -e -c "bash {0}"
+      shell: bash
       run: |
         cd ${{ inputs.project_directory }}
         space link --id "${{ inputs.project_id }}"
