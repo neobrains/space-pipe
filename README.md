@@ -16,6 +16,8 @@ Thanks for the help ✨ [Sponge](https://github.com/rohanshiva).
 
 - `space_push` : (Optional) If true, pushes your changes to Space and creates a new revision. The default value is false.
 
+- `experimental` : (Optional) If true, uses Deta Space's experimental runner. The default value is false.
+
 - `space_release` : (Optional) If true, the latest revision will be released to Space. The default value is false.
 
 - `list_on_discovery` : (Optional) If true, the latest revision will be listed on Space Discovery. The default value is false.
