@@ -1,4 +1,4 @@
-# Space Deployment Github Action
+# Space Pipe
 A simple GitHub Action to deploy your projects to [Deta Space](https://alpha.deta.space/) and let their [builder](https://alpha.deta.space/docs/en/basics/projects#projects-in-builder) build your apps.
 
 Thanks for the help ✨ [Sponge](https://github.com/rohanshiva).
@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deta Space Deployment Github Action
-        uses: neobrains/space-deployment-github-action@v0.5
+        uses: neobrains/space-pipe@v0.5
         with:
           access_token: ${{ secrets.ACCESS_TOKEN }}
           project_id: ${{ secrets.PROJECT_ID }}
