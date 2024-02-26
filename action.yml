@@ -24,6 +24,11 @@ inputs:
     required: false
     default: false
 
+  experimental:
+    description: Whether to use the experimental runner version for space push. Valid value is "true".
+    required: false
+    default: false
+
   space_release:
     description: Whether to do space release without listing the revision on Space Discovery. Valid value is "true". Space release will not be performed by default.
     required: false
@@ -55,7 +60,11 @@ runs:
       run: |
         cd ${{ inputs.project_directory }}
         space link --id "${{ inputs.project_id }}"
-        space push
+        if [[ ${{ inputs.experimental }} == true ]]; then
+          space push --runner-version experimental
+        else
+          space push
+        fi
 
     - name: Create a release on Deta Space
       if: ${{ inputs.space_release == 'true' }}
